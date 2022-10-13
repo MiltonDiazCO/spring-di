@@ -12,7 +12,6 @@ import com.milton.spring.basico.di.models.service.IServicio;
 public class IndexController {
 
 	@Autowired
-	@Qualifier("miServicioComplejo")
 	private IServicio servicio;
 
 	@GetMapping({ "", "/", "/index" })
