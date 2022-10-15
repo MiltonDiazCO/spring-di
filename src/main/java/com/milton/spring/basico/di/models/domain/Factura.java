@@ -2,6 +2,9 @@ package com.milton.spring.basico.di.models.domain;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -11,12 +14,23 @@ public class Factura {
 
 	@Value("${factura.descripcion}")
 	private String descripcion;
-	
+
 	@Autowired
 	private Cliente cliente;
-	
+
 	@Autowired
 	private List<ItemFactura> items;
+
+	@PostConstruct
+	public void inicializar() {
+		cliente.setNombre(cliente.getNombre().concat(" Andrés"));
+		descripcion = descripcion.concat(" del cliente: ").concat(cliente.getNombre());
+	}
+
+	@PreDestroy
+	public void destruir() {
+		System.out.println("\nFactura destruida");
+	}
 
 	public String getDescripcion() {
 		return descripcion;
